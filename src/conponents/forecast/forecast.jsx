@@ -5,32 +5,37 @@ import { Accordion,
     AccordionItemPanel } from "react-accessible-accordion";
 import './forecast.css';
 
-const WEEK_DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-
 const Forecast = ({data}) => {
-    const dayInAWeek = new Date().getDay();
-    const forecastDays = WEEK_DAYS.slice(dayInAWeek, WEEK_DAYS.length).concat(WEEK_DAYS.slice(0, dayInAWeek));
+
+    const forecastTime = data.list.slice(0, 8).map(item => {
+        return item.dt_txt
+    })
+
+    // const forecastTime = forecastTimeInMs.map(time => {
+    //     return time.toString()
+    // })
+
 
     return (
         <>
             <label className="title">Daily</label>
             <Accordion allowZeroExpanded>
-                {data.list.slice(0, 7).map((item, idx) => (
+                {data.list.slice(0, 8).map((item, idx) => (
                     <AccordionItem key={idx}>
                         <AccordionItemHeading>
                             <AccordionItemButton>
                                 <div className="daily-item">
                                     <img src={`./icons/${item.weather[0].icon}.png`} alt="weather" className="icon-small" />
-                                    <label className="day">{forecastDays[idx]}</label>
+                                    <label className="day">{forecastTime[idx]}</label>
                                     <label className="description">{item.weather[0].description}</label>
-                                    <label className="min-max">{Math.round(item.main.temp_min)}°C / {Math.round(item.main.temp_max)}°C</label>
+                                    <label className="min-max">{Math.round(item.main.temp_max)}°C</label>
                                 </div>
                             </AccordionItemButton>
                         </AccordionItemHeading>
                         <AccordionItemPanel>
                         <div className="daily-details-grid">
                                 <div className="daily-details-grid-item">
-                                    <label>Presure</label>
+                                    <label>Pressure</label>
                                     <label>{item.main.pressure} hPa</label>
                                 </div>
                                 <div className="daily-details-grid-item">
@@ -44,10 +49,6 @@ const Forecast = ({data}) => {
                                 <div className="daily-details-grid-item">
                                     <label>Wind speed</label>
                                     <label>{item.wind.speed} m/s</label>
-                                </div>
-                                <div className="daily-details-grid-item">
-                                    <label>Sea level</label>
-                                    <label>{item.main.sea_level}m</label>
                                 </div>
                                 <div className="daily-details-grid-item">
                                     <label>Feels like</label>
