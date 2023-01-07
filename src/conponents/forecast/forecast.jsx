@@ -3,6 +3,7 @@ import { Accordion,
     AccordionItemButton,
     AccordionItemHeading,
     AccordionItemPanel } from "react-accessible-accordion";
+import './forecast.css';
 
 const WEEK_DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
@@ -26,7 +27,8 @@ const Forecast = ({data}) => {
                                 </div>
                             </AccordionItemButton>
                         </AccordionItemHeading>
-                        <AccordionItemPanel></AccordionItemPanel>
+                        <AccordionItemPanel>
+                        </AccordionItemPanel>
                     </AccordionItem>
                 ))}
             </Accordion>
